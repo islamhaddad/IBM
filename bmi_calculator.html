@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حاسبة مؤشر كتلة الجسم (BMI)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #aaa;
+      width: 300px;
+      text-align: right;
+      direction: rtl;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>حاسبة مؤشر كتلة الجسم (BMI)</h2>
+    <label for="weight">الوزن (كغ):</label>
+    <input type="number" id="weight" step="0.1" placeholder="أدخل وزنك بالكيلوغرام">
+    <label for="height">الطول (سم):</label>
+    <input type="number" id="height" step="0.1" placeholder="أدخل طولك بالسنتيمتر">
+    <button onclick="calculateBMI()">احسب BMI</button>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    function calculateBMI() {
+      const weight = Number(document.getElementById("weight").value);
+      const heightCm = Number(document.getElementById("height").value);
+      if (!weight || !heightCm || weight <= 0 || heightCm <= 0) {
+        document.getElementById("result").textContent = "يرجى إدخال بيانات صحيحة.";
+        return;
+      }
+      const heightM = heightCm / 100;
+      const bmi = (weight / (heightM ** 2)).toFixed(2);
+      let message = "";
+      if (bmi < 18.5) {
+        message = `نحافة (BMI = ${bmi})`;
+      } else if (bmi < 25) {
+        message = `وزن طبيعي (BMI = ${bmi})`;
+      } else if (bmi < 30) {
+        message = `زيادة وزن (BMI = ${bmi})`;
+      } else {
+        message = `سمنة (BMI = ${bmi})`;
+      }
+      document.getElementById("result").textContent = message;
+    }
+  </script>
+</body>
+</html>
